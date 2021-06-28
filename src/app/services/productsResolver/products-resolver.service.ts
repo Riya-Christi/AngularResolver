@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import {
-  Resolve
+  ActivatedRouteSnapshot,
+  Resolve,
+  RouterStateSnapshot
 } from '@angular/router';
 import { ProductService } from '../product/product.service';
 import { of } from 'rxjs';
@@ -11,7 +13,11 @@ import { catchError } from 'rxjs/operators';
 })
 export class ProductsResolverService implements Resolve<any> {
   constructor(private product: ProductService) {}
-  resolve() {
+  resolve(
+    route: ActivatedRouteSnapshot,
+    rstate: RouterStateSnapshot
+  ): Observable<any> {
+    console.log('Called Get Product in resolver...', route);
     return this.product.getProducts().pipe(
       catchError(error => {
         return of('No data');
