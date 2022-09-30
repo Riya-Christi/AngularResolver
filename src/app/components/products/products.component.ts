@@ -7,20 +7,16 @@ import { Product } from '../../interfaces/product';
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css']
 })
+
 export class ProductsComponent implements OnInit {
   products: Product[];
 
-  constructor(private activatedRoute: ActivatedRoute) {}
+  constructor(private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    console.log(
-      'Activated route data in Component:::',
-      this.activatedRoute.data
-    );
-    this.activatedRoute.data.subscribe((response: any) => {
-      console.log('PRODUCT FETCHING', response);
-      this.products = response.products;
-      console.log('PRODUCT FETCHED');
-    });
+    this.products = this.activatedRoute.snapshot.data['products'];
+    console.log("In products component::::",this.products);
+    
+   
   }
 }

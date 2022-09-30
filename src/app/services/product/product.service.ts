@@ -7,7 +7,7 @@ import { Product } from '../../interfaces/product';
   providedIn: 'root'
 })
 export class ProductService {
-  url = 'https://fakestoreapi.com/products?limit=6';
+  url = 'https://fakestoreapi.com/products';
   constructor(public http: HttpClient) {}
 
   getProducts(): Observable<Product[]> {

@@ -5,23 +5,16 @@ import {
   RouterStateSnapshot
 } from '@angular/router';
 import { ProductService } from '../product/product.service';
-import { of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { Product } from 'src/app/interfaces/product';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProductsResolverService implements Resolve<any> {
+export class ProductsResolverService implements Resolve<Product[]>{
   constructor(private product: ProductService) {}
-  resolve(
-    route: ActivatedRouteSnapshot,
-    rstate: RouterStateSnapshot
-  ): Observable<any> {
-    console.log('Called Get Product in resolver...', route);
-    return this.product.getProducts().pipe(
-      catchError(error => {
-        return of('No data');
-      })
-    );
+  resolve(route: ActivatedRouteSnapshot): Observable<Product[]>{
+    console.log('Get products data in resolver', route);
+    return this.product.getProducts();
   }
 }
